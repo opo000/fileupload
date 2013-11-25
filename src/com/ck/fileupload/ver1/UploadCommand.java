@@ -26,7 +26,4 @@ public class UploadCommand {
 	public void setUpFile(MultipartFile upFile) {
 		this.upFile = upFile;
 	}
-	
-	
-	
 }

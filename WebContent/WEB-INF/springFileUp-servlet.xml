@@ -16,10 +16,10 @@
     <!-- File upload object -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 
-    <bean name="/springTest.spr" class="com.ck.SpringTestController" />
     
     <bean id="uploadDao" class="com.ck.fileupload.ver1.UploadDao" />
     
+    <!-- Version 1 -->
     <bean name="/uploadActionVer1.spr" class="com.ck.fileupload.ver1.UploadController">
         <property name="commandClass" value="com.ck.fileupload.ver1.UploadCommand" />
         <property name="commandName" value="uploadCommand" /> 
@@ -27,6 +27,13 @@
         <property name="validator" ref="uploadValidator" />
         <property name="formView" value="../upload1" />
     </bean>
+    
+    
+    <!-- Version 2 using spring 3.0 -->
+    <bean class="com.ck.fileupload.ver2.controller.UploadController">
+        <property name="uploadDao" ref="uploadDao" />
+    </bean>
+    
 
     <!-- Validator -->
     <bean id="uploadValidator" class="com.ck.fileupload.ver1.UploadValidator" />
@@ -39,5 +46,7 @@
             </list>
         </property>
     </bean>
+    
+    <context:annotation-config />
     
 </beans>
