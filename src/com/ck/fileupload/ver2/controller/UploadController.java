@@ -112,8 +112,4 @@ public class UploadController {
 	protected void initBinder(WebDataBinder binder){
 		binder.setValidator(new UploadValidator());
 	}
-	
-	
-	
-	
 }

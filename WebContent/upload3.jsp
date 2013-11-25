@@ -7,6 +7,66 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
+
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+<script type="text/javascript">
+
+    var httpRequest = null;
+    
+    function getXMLHttpRequest(){
+    	if(window.ActiveXObject){
+    		try{
+    			return new ActiveXObject("Msxml2.XMLHTTP");
+    		}catch(e){
+    			return new ActiveXObject("Microsoft.XMLHTTP")
+    		}
+    	}else{
+    		return new XMLHttpRequest();
+    	}
+    }
+
+	function fnAddFile(){
+	    httpRequest  = getXMLHttpRequest();
+	    httpRequest.onreadystatechange = fnMessage;
+	    var url = "uploadActionVer3.spr?addCnt=" + document.getElementById("addCnt").value;
+	    
+	    httpRequest.open("GET", url, true);
+	    httpRequest.send(null);
+	}
+	
+	function fnMessage(){
+		if(httpRequest.readyState == 4){
+			if(httpRequest.status == 200){
+				
+				document.getElementById("fileArea").innerHTML = "";
+				var cnt = httpRequest.responseText;
+				
+				var input = "<input type='file' name='sel[]' /><br />";
+				
+				for(i=0;i<cnt;i++){
+					document.getElementById("fileArea").innerHTML += input;
+				}
+				
+			}else{
+				alert(" Error : " + httpRequest.status);
+			}
+		}
+	}
+
+
+    function fnAddFile2(){
+    	
+    	$(function() {
+    	    $.get("uploadActionVer2.spr?addCnt="+ $("addCnt").val(), function(data) {
+    	         $(data).find("img").appendTo("#result");    
+    	     });
+    	    });    	
+    }
+    
+    
+</script>
 </head>
 <body>
 
@@ -47,7 +107,7 @@
 		</p>
 		
 		Number of files : <input type="text" name="addCnt" id="addCnt" size="2" />
-		<input type="button" value="confirm" />
+		<input type="button" value="confirm" onclick = "fnAddFile();"/>
 		<p/>
 		
 		<div id="fileArea">

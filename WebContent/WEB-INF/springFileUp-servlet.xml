@@ -34,6 +34,9 @@
         <property name="uploadDao" ref="uploadDao" />
     </bean>
     
+    <bean class="com.ck.fileupload.ver3.controller.UploadController">
+    </bean>
+    
 
     <!-- Validator -->
     <bean id="uploadValidator" class="com.ck.fileupload.ver1.UploadValidator" />
